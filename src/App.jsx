@@ -40,14 +40,14 @@ const App = () => {
                                <CustomerCustomers/>
                            </CustomerLayout>}
                 />
-                <Route path="/admin/dashboard"
+                <Route path="/admin/accounts"
                        element=
-                           {<AdminLayout>
+                           {<AdminLayout >
                                <AdminDashboard/>
                            </AdminLayout>}/>
                 <Route path="/admin/customers"
                        element=
-                           {<AdminLayout>
+                           {<AdminLayout >
                                <AdminCustomers/>
                            </AdminLayout>}/>
                 <Route

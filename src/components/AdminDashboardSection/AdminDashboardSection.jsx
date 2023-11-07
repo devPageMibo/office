@@ -5,7 +5,6 @@ import AdminCustomersAllTable from "../AdminCustomersAllTable/AdminCustomersAllT
 export const AdminDashboardSection = () => {
     return (
      <AdminDashboardContent>
-         <h1>Admin Dashboard</h1>
             <AdminCustomersAllTable/>
      </AdminDashboardContent>
     )

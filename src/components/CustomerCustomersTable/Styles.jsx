@@ -54,5 +54,19 @@ export const CustomerCustomersContent = styled.div`
     border-top: 1px solid rgba(0, 0, 0, 0.25);
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   }
+  .add {
+    border-radius: 10px;
+    background: #1E0F6D;
+    box-shadow: 0px 10px 60px 0px rgba(10, 45, 97, 0.10);
+    width: 19px;
+    height: 19px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .edit,
+  .bin {
+    cursor: pointer;
+  }
 
 `;
