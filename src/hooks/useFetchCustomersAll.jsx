@@ -99,10 +99,14 @@ const useFetchCustomersAll = (accessToken) => {
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
-
+    useEffect(() => {
+        setPageSize(10);
+        fetchCustomers();
+    }, [accessToken]);
 
     return {
         customers: paginatedCustomers,
+        // customers,
         pageSize,
         setPageSize,
         currentPage,
@@ -113,6 +117,8 @@ const useFetchCustomersAll = (accessToken) => {
         handlePageChange,
         selectedDate,
         handleDateChange,
+
+        fetchCustomers,
     };
 };
 

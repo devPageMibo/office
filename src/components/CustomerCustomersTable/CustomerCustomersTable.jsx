@@ -15,9 +15,11 @@ const CustomerCustomersTable = ({accessToken}) => {
         setCurrentPage,
         totalPages,
         handlePageChange,
-        fetchCustomers
+        fetchCustomers,
     } = useFetchCustomers(accessToken);
+
     const userRole = localStorage.getItem('userRole');
+
     const startIndex = (currentPage - 1) * pageSize + 1;
     const endIndex = Math.min(startIndex + pageSize - 1, customers.length);
     const totalEntries = customers.length;
@@ -102,26 +104,6 @@ const CustomerCustomersTable = ({accessToken}) => {
                 ))}
                 </tbody>
             </table>
-            {/*<div>*/}
-            {/*    {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (*/}
-            {/*        <button*/}
-            {/*            key={page}*/}
-            {/*            onClick={() => handlePageChange(page)}*/}
-            {/*            disabled={page === currentPage}*/}
-            {/*        >*/}
-            {/*            {page}*/}
-            {/*        </button>*/}
-            {/*    ))}*/}
-            {/*    /!* Умовний рендерінг кнопки для наступної сторінки *!/*/}
-            {/*    {customers.length >= pageSize && currentPage < totalPages && (*/}
-            {/*        <button*/}
-            {/*            onClick={() => handlePageChange(currentPage + 1)}*/}
-            {/*        >*/}
-
-            {/*        </button>*/}
-            {/*    )}*/}
-            {/*</div>*/}
-
             <div>
                 <p>
                     Showing {startIndex} to {endIndex} of {totalEntries} entries

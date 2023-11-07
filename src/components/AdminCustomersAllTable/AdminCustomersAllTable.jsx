@@ -20,7 +20,25 @@ const AdminCustomersAllTable = ({ accessToken }) => {
         handlePageChange,
         selectedDate,
         handleDateChange,
+        fetchCustomers,
+
     } = useFetchCustomersAll(accessToken);
+
+    const startIndex = (currentPage - 1) * pageSize + 1;
+    const endIndex = Math.min(startIndex + pageSize - 1, customers.length);
+    const totalEntries = customers.length;
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -101,16 +119,32 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                 ))}
                 </tbody>
             </table>
+            {/*<div>*/}
+            {/*    {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (*/}
+            {/*        <button*/}
+            {/*            key={page}*/}
+            {/*            onClick={() => handlePageChange(page)}*/}
+            {/*            disabled={page === currentPage}*/}
+            {/*        >*/}
+            {/*            {page}*/}
+            {/*        </button>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
             <div>
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                    <button
-                        key={page}
-                        onClick={() => handlePageChange(page)}
-                        disabled={page === currentPage}
-                    >
-                        {page}
+                <p>
+                    Showing {startIndex} to {endIndex} of {totalEntries} entries
+                </p>
+                {totalPages > 1 && (
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                        {'<'}
                     </button>
-                ))}
+                )}
+                <span>{currentPage}</span>
+                {totalPages > 1 && (
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                        {'>'}
+                    </button>
+                )}
             </div>
         </CustomersAllContent>
     );
