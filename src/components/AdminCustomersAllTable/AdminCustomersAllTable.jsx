@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { CustomersAllContent } from "./Styles.jsx";
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import edit from './../../assets/images/edit.svg';
 import useFetchCustomersAll from "../../hooks/useFetchCustomersAll.jsx";
+import CreateCustomerModal from "../CreateCustomerModal/CreateCustomerModal.jsx";
 
 const AdminCustomersAllTable = ({ accessToken }) => {
     const {
@@ -19,6 +20,19 @@ const AdminCustomersAllTable = ({ accessToken }) => {
         selectedDate,
         handleDateChange,
     } = useFetchCustomersAll(accessToken);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCreateCustomer = (formData) => {
+    };
 
     return (
         <CustomersAllContent>
@@ -38,8 +52,11 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                         dateFormat="dd.MM.yyyy"
                     />
                 </div>
+                <div className="create-new">
+                    <button onClick={openModal}>Create</button>
+                </div>
+                <CreateCustomerModal isOpen={isModalOpen} onClose={closeModal} onCreate={handleCreateCustomer} />
             </div>
-
 
             <select value={pageSize} onChange={(e) => setPageSize(e.target.value)}>
                 <option value="10">10</option>
@@ -91,3 +108,4 @@ const AdminCustomersAllTable = ({ accessToken }) => {
 };
 
 export default AdminCustomersAllTable;
+
