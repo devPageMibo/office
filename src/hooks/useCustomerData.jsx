@@ -4,7 +4,6 @@ const useCustomerData = () => {
     const [customerData, setCustomerData] = useState(null);
     const [error, setError] = useState(null);
 
-    // const apiUrl = 'https://highdardata.xyz/office/v1/adminCustomers/getAll';
     const apiUrl = 'https://highdardata.xyz/office/v1/account/customerData';
 
     useEffect(() => {

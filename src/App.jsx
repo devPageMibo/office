@@ -6,13 +6,12 @@ import AdminDashboard from "./pages/Dashboard/AdminDashboard/AdminDashboard.jsx"
 import LoginLayout from "./layouts/LoginLayout/LoginLayout.jsx";
 import CustomerLayout from "./layouts/CustomerLayout/CustomerLayout.jsx";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout.jsx";
-import useCustomerData from "./hooks/useCustomerData.jsx";
 import CustomerTransactions from "./pages/Dashboard/CustomerTransactions/CustomerTransactions.jsx";
 import CustomerCustomers from "./pages/Dashboard/CustomerCustomers/CustomerCustomers.jsx";
 import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage.jsx";
+import AdminCustomers from "./pages/Dashboard/AdminСustomers/AdminСustomers.jsx";
 
 const App = () => {
-    const { customerData, error } = useCustomerData();
     const [userRole, setUserRole] = useState(null);
     return (
         <Router>
@@ -25,19 +24,19 @@ const App = () => {
                 />
                 <Route path="/customer/dashboard"
                        element=
-                           {<CustomerLayout setUserRole={setUserRole} customerData={customerData}>
+                           {<CustomerLayout setUserRole={setUserRole} >
                                <CustomerDashboard/>
                            </CustomerLayout>}
                 />
                 <Route path="/customer/transactions"
                        element=
-                           {<CustomerLayout setUserRole={setUserRole} customerData={customerData}>
+                           {<CustomerLayout setUserRole={setUserRole} >
                                <CustomerTransactions/>
                            </CustomerLayout>}
                 />
                 <Route path="/customer/customers"
                        element=
-                           {<CustomerLayout setUserRole={setUserRole} customerData={customerData}>
+                           {<CustomerLayout setUserRole={setUserRole} >
                                <CustomerCustomers/>
                            </CustomerLayout>}
                 />
@@ -45,6 +44,11 @@ const App = () => {
                        element=
                            {<AdminLayout>
                                <AdminDashboard/>
+                           </AdminLayout>}/>
+                <Route path="/admin/customers"
+                       element=
+                           {<AdminLayout>
+                               <AdminCustomers/>
                            </AdminLayout>}/>
                 <Route
                     path="*"

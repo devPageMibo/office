@@ -38,7 +38,7 @@ const CUSTOMER_MENUS = [
 
 export const Sidebar = ({setUserRole}) => {
     const userRole = localStorage.getItem('userRole')
-    console.log('Sidebar userRole', userRole)
+    // console.log('Sidebar userRole', userRole)
     const menus = userRole === "Customer" ? CUSTOMER_MENUS : ADMIN_MENUS ;
     // const menus = userRole === "CustomerLayout" ? ADMIN_MENUS : CUSTOMER_MENUS ;
 

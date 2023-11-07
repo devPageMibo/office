@@ -50,9 +50,14 @@ export const CustomersAllContent = styled.div`
     }
   }
 
-  tr{
+  tr {
     border-top: 1px solid rgba(0, 0, 0, 0.25);
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   }
 
+`;
+
+export const Modal = styled.div`
+`;
+export const ModalForm = styled.div`
 `;

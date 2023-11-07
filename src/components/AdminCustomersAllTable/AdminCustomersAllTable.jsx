@@ -1,50 +1,9 @@
-
-import React, { useState, useEffect } from 'react';
-import {CustomersAllContent} from "./Styles.jsx";
-import edit from './../../assets/images/edit.svg'
-
-const apiUrl = 'https://highdardata.xyz/office/v1/customers/getAll';
-
-const useFetchCustomersAll = (accessToken) => {
-    const [customers, setCustomers] = useState([]);
-    const [pageSize, setPageSize] = useState(10);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-
-    const fetchCustomers = async () => {
-        try {
-            const accessToken = localStorage.getItem('accessToken');
-            const response = await fetch(apiUrl, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            const data = await response.json();
-            setCustomers(data);
-            setTotalPages(Math.ceil(data.length / pageSize));
-        } catch (error) {
-            console.error('Error fetching customers:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchCustomers();
-    }, [accessToken]);
-
-    const paginatedCustomers = customers.slice(
-        (currentPage - 1) * pageSize,
-        currentPage * pageSize
-    );
-
-    return {
-        customers: paginatedCustomers,
-        pageSize,
-        setPageSize,
-        currentPage,
-        setCurrentPage,
-        totalPages,
-    };
-};
+import React from 'react';
+import { CustomersAllContent } from "./Styles.jsx";
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import edit from './../../assets/images/edit.svg';
+import useFetchCustomersAll from "../../hooks/useFetchCustomersAll.jsx";
 
 const AdminCustomersAllTable = ({ accessToken }) => {
     const {
@@ -54,14 +13,34 @@ const AdminCustomersAllTable = ({ accessToken }) => {
         currentPage,
         setCurrentPage,
         totalPages,
+        searchTerm,
+        setSearchTerm,
+        handlePageChange,
+        selectedDate,
+        handleDateChange,
     } = useFetchCustomersAll(accessToken);
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
 
     return (
         <CustomersAllContent>
+            <div className="table-control">
+                <div className="search">
+                    <input
+                        type="text"
+                        placeholder="Пошук за ім'ям, електронною поштою, телефоном тощо"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+                <div className="date-filter">
+                    <ReactDatePicker
+                        selected={selectedDate}
+                        onChange={handleDateChange}
+                        dateFormat="dd.MM.yyyy"
+                    />
+                </div>
+            </div>
+
+
             <select value={pageSize} onChange={(e) => setPageSize(e.target.value)}>
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -69,6 +48,7 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                 <option value="100">100</option>
             </select>
             <table>
+                <thead>
                 <tr>
                     <th> ID</th>
                     <th>Name</th>
@@ -79,6 +59,7 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                     <th>Date</th>
                     <th></th>
                 </tr>
+                </thead>
                 <tbody>
                 {customers.map((customer) => (
                     <tr key={customer.id}>
@@ -95,18 +76,15 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                 </tbody>
             </table>
             <div>
-                {/* Навігація між сторінками */}
-                {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                    (page) => (
-                        <button
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                            disabled={page === currentPage}
-                        >
-                            {page}
-                        </button>
-                    )
-                )}
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                    <button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        disabled={page === currentPage}
+                    >
+                        {page}
+                    </button>
+                ))}
             </div>
         </CustomersAllContent>
     );
