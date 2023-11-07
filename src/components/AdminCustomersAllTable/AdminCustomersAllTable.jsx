@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import { CustomersAllContent } from "./Styles.jsx";
+import {CustomersAllContent} from "./Styles.jsx";
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import edit from './../../assets/images/edit.svg';
 import useFetchCustomersAll from "../../hooks/useFetchCustomersAll.jsx";
 import CreateCustomerModal from "../CreateCustomerModal/CreateCustomerModal.jsx";
+
 
 const AdminCustomersAllTable = ({ accessToken }) => {
     const {
@@ -34,6 +35,14 @@ const AdminCustomersAllTable = ({ accessToken }) => {
     const handleCreateCustomer = (formData) => {
     };
 
+    // const today = new Date();
+    // const formattedDate = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
+
+    const getCurrentDate = () => {
+        const now = new Date();
+        return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    };
+
     return (
         <CustomersAllContent>
             <div className="table-control">
@@ -47,7 +56,7 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                 </div>
                 <div className="date-filter">
                     <ReactDatePicker
-                        selected={selectedDate}
+                        selected={selectedDate || getCurrentDate()}
                         onChange={handleDateChange}
                         dateFormat="dd.MM.yyyy"
                     />
