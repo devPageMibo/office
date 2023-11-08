@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CustomerCustomersContent = styled.div`
+  position: relative;
   table {
     width: 100%;
     border-collapse: collapse;

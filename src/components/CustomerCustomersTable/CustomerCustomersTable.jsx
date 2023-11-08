@@ -1,12 +1,16 @@
-import React from 'react';
-import {CustomerCustomersContent} from "./Styles.jsx";
-import useFetchCustomers from "../../hooks/useFetchCustomers.jsx";
-import edit from "../../assets/images/edit.svg";
-import bin from "../../assets/images/bin.svg";
-import add from "../../assets/images/add.svg";
+import React, { useState } from 'react';
+import { CustomerCustomersContent } from './Styles.jsx';
+import useFetchCustomers from '../../hooks/useFetchCustomers.jsx';
+import useAdminCustomerLocalDelete from '../../hooks/useAdminCustomerLocalDelete.jsx';
+import edit from '../../assets/images/edit.svg';
+import bin from '../../assets/images/bin.svg';
+import add from '../../assets/images/add.svg';
+import EditCustomerModalcontent from '../EditCustomerModal/EditCustomerModalcontent.jsx';
+import Modal from "../Modal/Modal.jsx";
+import EditCustomerModalContent from "../EditCustomerModal/EditCustomerModalcontent.jsx";
+import useAdminCustomerLocalUpdate from "../../hooks/useAdminCustomerLocalUpdate.jsx";
 
-
-const CustomerCustomersTable = ({accessToken}) => {
+const CustomerCustomersTable = ({ accessToken }) => {
     const {
         customers,
         pageSize,
@@ -18,8 +22,9 @@ const CustomerCustomersTable = ({accessToken}) => {
         fetchCustomers,
     } = useFetchCustomers(accessToken);
 
-    const userRole = localStorage.getItem('userRole');
+    const { handleDeleteCustomer, error } = useAdminCustomerLocalDelete(fetchCustomers);
 
+    const userRole = localStorage.getItem('userRole');
     const startIndex = (currentPage - 1) * pageSize + 1;
     const endIndex = Math.min(startIndex + pageSize - 1, customers.length);
     const totalEntries = customers.length;
@@ -36,26 +41,19 @@ const CustomerCustomersTable = ({accessToken}) => {
         }
     };
 
-    const handleDeleteCustomer = async (customerId) => {
-        console.log(customerId)
-        try {
-            const accessToken = localStorage.getItem('accessToken');
-            const response = await fetch(`https://highdardata.xyz/office/v1/adminCustomers/delete?id=${customerId}`, {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCustomer, setSelectedCustomer] = useState(null); // Define selectedCustomer here
 
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
+    const handleEditCustomer = (customer) => {
+        setIsModalOpen(true);
+        setSelectedCustomer(customer);
+    };
 
+    const { handleUpdateCustomer, error: updateError } = useAdminCustomerLocalUpdate(fetchCustomers);
 
-            if (response.ok) {
-                fetchCustomers();
-            } else {
-                console.error('Помилка при видаленні покупця');
-            }
-        } catch (error) {
-            console.error('Помилка при видаленні покупця', error);
-        }
+    const handleSaveEditedCustomer = async (editedCustomer) => {
+        handleUpdateCustomer(editedCustomer);
+        setIsModalOpen(false);
     };
 
     return (
@@ -76,7 +74,7 @@ const CustomerCustomersTable = ({accessToken}) => {
                     <th>Recovered amount</th>
                     <th>Date</th>
                     {userRole === 'Admin' && (<td></td>)}
-                    {userRole === 'Admin' && (<td><img className="add" src={add} alt="icon"/></td>)}
+                    {userRole === 'Admin' && (<td><img className="add" src={add} alt="icon" /></td>)}
                 </tr>
                 </thead>
                 <tbody>
@@ -90,16 +88,24 @@ const CustomerCustomersTable = ({accessToken}) => {
                         <td>{customer.date}</td>
                         {userRole === 'Admin' && (
                             <td>
-                                <img className="edit" src={edit} alt="icon"/>
+                                <img
+                                    className="edit"
+                                    src={edit}
+                                    alt="icon"
+                                    onClick={() => {
+                                        handleEditCustomer(customer);
+                                    }}
+                                />
                             </td>
                         )}
                         {userRole === 'Admin' && (
                             <td>
-                                <img className="bin" src={bin} alt="icon"
-                                     onClick={() => handleDeleteCustomer(customer.id)}/>
+                                <img className="bin"
+                                     src={bin}
+                                     alt="icon"
+                                     onClick={() => handleDeleteCustomer(customer.id)} />
                             </td>
                         )}
-
                     </tr>
                 ))}
                 </tbody>
@@ -120,11 +126,14 @@ const CustomerCustomersTable = ({accessToken}) => {
                     </button>
                 )}
             </div>
+            {isModalOpen && selectedCustomer && (
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
 
-
+                    <EditCustomerModalContent customer={selectedCustomer} onSave={handleSaveEditedCustomer} />
+                </Modal>
+            )}
         </CustomerCustomersContent>
     );
 };
 
 export default CustomerCustomersTable;
-

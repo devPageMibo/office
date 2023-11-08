@@ -42,11 +42,11 @@ const AdminCustomersAllTable = ({ accessToken }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => {
+    const openEditModal = () => {
         setIsModalOpen(true);
     };
 
-    const closeModal = () => {
+    const closeEditModal = () => {
         setIsModalOpen(false);
     };
 
@@ -80,9 +80,9 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                     />
                 </div>
                 <div className="create-new">
-                    <button onClick={openModal}>Create</button>
+                    <button onClick={openEditModal}>Create</button>
                 </div>
-                <CreateCustomerModal isOpen={isModalOpen} onClose={closeModal} onCreate={handleCreateCustomer} />
+                <CreateCustomerModal isOpen={isModalOpen} onClose={closeEditModal} onCreate={handleCreateCustomer} />
             </div>
 
             <select value={pageSize} onChange={(e) => setPageSize(e.target.value)}>
