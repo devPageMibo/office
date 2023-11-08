@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { CustomerCustomersContent } from './Styles.jsx';
+import React, {useState} from 'react';
+import {CustomerCustomersContent} from './Styles.jsx';
 import useFetchCustomers from '../../hooks/useFetchCustomers.jsx';
 import useAdminCustomerLocalDelete from '../../hooks/useAdminCustomerLocalDelete.jsx';
+import Modal from "../Modal/Modal.jsx";
+import EditCustomerModalContent from "../EditCustomerModalСontent/EditCustomerModalcontent.jsx";
+import useAdminCustomerLocalUpdate from "../../hooks/useAdminCustomerLocalUpdate.jsx";
+import AddCustomerModalContent from "../AddCustomerModalContent/AddCustomerModalContent.jsx";
+import useAdminCustomerLocalAdd from "../../hooks/useAdminCustomerAdd.jsx";
 import edit from '../../assets/images/edit.svg';
 import bin from '../../assets/images/bin.svg';
 import add from '../../assets/images/add.svg';
-import EditCustomerModalcontent from '../EditCustomerModal/EditCustomerModalcontent.jsx';
-import Modal from "../Modal/Modal.jsx";
-import EditCustomerModalContent from "../EditCustomerModal/EditCustomerModalcontent.jsx";
-import useAdminCustomerLocalUpdate from "../../hooks/useAdminCustomerLocalUpdate.jsx";
 
-const CustomerCustomersTable = ({ accessToken }) => {
+const CustomerCustomersTable = ({accessToken}) => {
     const {
         customers,
         pageSize,
@@ -22,7 +23,7 @@ const CustomerCustomersTable = ({ accessToken }) => {
         fetchCustomers,
     } = useFetchCustomers(accessToken);
 
-    const { handleDeleteCustomer, error } = useAdminCustomerLocalDelete(fetchCustomers);
+    const {handleDeleteCustomer, error} = useAdminCustomerLocalDelete(fetchCustomers);
 
     const userRole = localStorage.getItem('userRole');
     const startIndex = (currentPage - 1) * pageSize + 1;
@@ -49,11 +50,23 @@ const CustomerCustomersTable = ({ accessToken }) => {
         setSelectedCustomer(customer);
     };
 
-    const { handleUpdateCustomer, error: updateError } = useAdminCustomerLocalUpdate(fetchCustomers);
+    const {handleUpdateCustomer, error: updateError} = useAdminCustomerLocalUpdate(fetchCustomers);
 
     const handleSaveEditedCustomer = async (editedCustomer) => {
-        handleUpdateCustomer(editedCustomer);
+        await handleUpdateCustomer(editedCustomer);
         setIsModalOpen(false);
+    };
+
+    const {handleAddCustomer} = useAdminCustomerLocalAdd(fetchCustomers)
+
+
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const openAddModal = () => {
+        setIsAddModalOpen(true);
+    };
+
+    const closeAddModal = () => {
+        setIsAddModalOpen(false);
     };
 
     return (
@@ -74,7 +87,19 @@ const CustomerCustomersTable = ({ accessToken }) => {
                     <th>Recovered amount</th>
                     <th>Date</th>
                     {userRole === 'Admin' && (<td></td>)}
-                    {userRole === 'Admin' && (<td><img className="add" src={add} alt="icon" /></td>)}
+                    {userRole === 'Admin' && (
+                        <td>
+                            <img
+                                className="add"
+                                src={add}
+                                alt="icon"
+                                onClick={openAddModal}
+                                // onClick={() => {
+                                //     handleAddNewCustomer();
+                                // }}
+                            />
+                        </td>
+                    )}
                 </tr>
                 </thead>
                 <tbody>
@@ -103,7 +128,7 @@ const CustomerCustomersTable = ({ accessToken }) => {
                                 <img className="bin"
                                      src={bin}
                                      alt="icon"
-                                     onClick={() => handleDeleteCustomer(customer.id)} />
+                                     onClick={() => handleDeleteCustomer(customer.id)}/>
                             </td>
                         )}
                     </tr>
@@ -128,8 +153,12 @@ const CustomerCustomersTable = ({ accessToken }) => {
             </div>
             {isModalOpen && selectedCustomer && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-
-                    <EditCustomerModalContent customer={selectedCustomer} onSave={handleSaveEditedCustomer} />
+                    <EditCustomerModalContent customer={selectedCustomer} onSave={handleSaveEditedCustomer}/>
+                </Modal>
+            )}
+            {isAddModalOpen && (
+                <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
+                    <AddCustomerModalContent customer={selectedCustomer} onSave={handleSaveEditedCustomer} onClose={closeAddModal}/>
                 </Modal>
             )}
         </CustomerCustomersContent>

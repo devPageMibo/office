@@ -16,16 +16,12 @@ const useAdminCustomerLocalUpdate = (fetchCustomers) => {
             });
 
             if (response.ok) {
-                // The data has been successfully updated on the server
-                // You can handle the success here if needed
                 console.log('Customer data updated successfully!');
                 fetchCustomers();
             } else {
-                // Handle errors from the server response
                 setError('Error updating customer data. Please try again later.');
             }
         } catch (error) {
-            // Handle network errors or other exceptions
             setError('Error updating customer data. Please try again later.');
         }
     };
