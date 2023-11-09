@@ -72,14 +72,12 @@ export const DashboardContent = styled ('div')`
             }
           }
         }
-
-        //& > div {
-        //  width: 105px;
-        //
-        //  input {
-        //    width: 81px;
-        //  }
-        //}
+      }
+      
+      &.second-graph {
+        .items {
+          flex-wrap: wrap;
+        }
       }
 
       & > div {

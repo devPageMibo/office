@@ -22,7 +22,74 @@ ChartJS.register(
 );
 
 
-export const ChartsLine13 = ({...customerData}) => {
+export const ChartsLine13 = ({
+                                 secondaryGraph1,
+                                 secondaryGraph2,
+                                 secondaryGraph3,
+                                 secondaryGraph4,
+                                 secondaryGraph5,
+                                 secondaryGraph6,
+                                 secondaryGraph7,
+                                 secondaryGraph8,
+                                 secondaryGraph9,
+                                 secondaryGraph10,
+                                 secondaryGraph11,
+                                 secondaryGraph12,
+                                 secondaryGraph13,
+    ...chartData13
+                             }) => {
+    console.log("secondaryGraph13", secondaryGraph13);
+    console.log("chartData13", chartData13);
+    const labels = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const updateChartData = (data) => ({
+
+        labels,
+        datasets: [
+            {
+                label: 'Second Graph',
+                data: [
+                    data.secondaryGraph1,
+                    data.secondaryGraph2,
+                    data.secondaryGraph3,
+                    data.secondaryGraph4,
+                    data.secondaryGraph5,
+                    data.secondaryGraph6,
+                    data.secondaryGraph7,
+                    data.secondaryGraph8,
+                    data.secondaryGraph9,
+                    data.secondaryGraph10,
+                    data.secondaryGraph11,
+                    data.secondaryGraph12,
+                    data.secondaryGraph13,
+                ],
+                pointRadius: 5,
+                pointBackgroundColor: '#5200FF',
+                pointBorderWidth: 1,
+                pointBorderColor: '#4801E6',
+                borderColor: '#4801E6',
+                borderWidth: 1,
+            },
+        ],
+    });
+
+
+
+    const data = updateChartData({
+        secondaryGraph1,
+        secondaryGraph2,
+        secondaryGraph3,
+        secondaryGraph4,
+        secondaryGraph5,
+        secondaryGraph6,
+        secondaryGraph7,
+        secondaryGraph8,
+        secondaryGraph9,
+        secondaryGraph10,
+        secondaryGraph11,
+        secondaryGraph12,
+        secondaryGraph13,
+    });
 
     const options = {
         maintainAspectRatio: false,
@@ -48,41 +115,7 @@ export const ChartsLine13 = ({...customerData}) => {
         },
     };
 
-    const labels = ['0', 'Jan',  'Feb',  'Mar',  'Apr',  'May',  'Jun',  'Jul',  'Aug',  'Sep',  'Oct',  'Nov',  'Dec'];
-
-
-
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: 'MainGraph',
-                data: [
-                    customerData.secondaryGraph1,
-                    customerData.secondaryGraph2,
-                    customerData.secondaryGraph3,
-                    customerData.secondaryGraph4,
-                    customerData.secondaryGraph5,
-                    customerData.secondaryGraph5,
-                    customerData.secondaryGraph7,
-                    customerData.secondaryGraph8,
-                    customerData.secondaryGraph9,
-                    customerData.secondaryGraph10,
-                    customerData.secondaryGraph11,
-                    customerData.secondaryGraph12,
-                    customerData.secondaryGraph13,
-                ],
-                pointRadius: 5,
-                pointBackgroundColor: '#5200FF',
-                pointBorderWidth: 1,
-                pointBorderColor: '#4801E6',
-                borderColor: '#4801E6',
-                borderWidth: 1,
-            },
-        ],
-    };
-
     return (
-        <Line options={options} data={data}/>
+        <Line options={options} data={data} />
     );
-}
+};
