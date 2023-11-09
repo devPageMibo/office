@@ -10,6 +10,7 @@ import CustomerTransactions from "./pages/Dashboard/CustomerTransactions/Custome
 import CustomerCustomers from "./pages/Dashboard/CustomerCustomers/CustomerCustomers.jsx";
 import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage.jsx";
 import AdminCustomers from "./pages/Dashboard/AdminСustomers/AdminСustomers.jsx";
+import AdminCustomerPage from "./pages/Dashboard/AdminCustomerPage/AdminCustomerPage.jsx";
 
 const App = () => {
     const [userRole, setUserRole] = useState(null);
@@ -24,37 +25,42 @@ const App = () => {
                 />
                 <Route path="/customer/dashboard"
                        element=
-                           {<CustomerLayout setUserRole={setUserRole} >
+                           {<CustomerLayout setUserRole={setUserRole}>
                                <CustomerDashboard/>
                            </CustomerLayout>}
                 />
                 <Route path="/customer/transactions"
                        element=
-                           {<CustomerLayout setUserRole={setUserRole} >
+                           {<CustomerLayout setUserRole={setUserRole}>
                                <CustomerTransactions/>
                            </CustomerLayout>}
                 />
                 <Route path="/customer/customers"
                        element=
-                           {<CustomerLayout setUserRole={setUserRole} >
+                           {<CustomerLayout setUserRole={setUserRole}>
                                <CustomerCustomers/>
                            </CustomerLayout>}
                 />
                 <Route path="/admin/accounts"
                        element=
-                           {<AdminLayout >
+                           {<AdminLayout>
                                <AdminDashboard/>
                            </AdminLayout>}/>
                 <Route path="/admin/customers"
                        element=
-                           {<AdminLayout >
+                           {<AdminLayout>
                                <AdminCustomers/>
+                           </AdminLayout>}/>
+                <Route path="/admin/customer"
+                       element=
+                           {<AdminLayout>
+                               <AdminCustomerPage/>
                            </AdminLayout>}/>
                 <Route
                     path="*"
-                    element={<Navigate to="/404" />}
+                    element={<Navigate to="/404"/>}
                 />
-                <Route path="/404" element={<NotFoundPage />} />
+                <Route path="/404" element={<NotFoundPage/>}/>
             </Routes>
         </Router>
     );

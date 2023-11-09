@@ -5,6 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import edit from './../../assets/images/edit.svg';
 import useFetchCustomersAll from "../../hooks/useFetchCustomersAll.jsx";
 import CreateCustomerModal from "../CreateCustomerModal/CreateCustomerModal.jsx";
+import Modal from "../Modal/Modal.jsx";
+import EditCustomerModalContent from "../EditCustomerModalСontent/EditCustomerModalContent.jsx";
+import useAdminCustomerUpdate from "../../hooks/useAdminCustomerUpdate.jsx";
+import {Navigate} from "react-router-dom";
 
 
 const AdminCustomersAllTable = ({ accessToken }) => {
@@ -53,13 +57,38 @@ const AdminCustomersAllTable = ({ accessToken }) => {
     const handleCreateCustomer = (formData) => {
     };
 
-    // const today = new Date();
-    // const formattedDate = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
-
     const getCurrentDate = () => {
         const now = new Date();
         return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
     };
+
+    //edit customer
+    const [isEModalOpen, setIsEModalOpen] = useState(false);
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+    const handleEditCustomer = (customer) => {
+        setIsEModalOpen(true);
+        setSelectedCustomer(customer);
+    };
+    const {handleUpdateCustomer, error: updateError} = useAdminCustomerUpdate(fetchCustomers);
+
+    const handleSaveEditedCustomer = async (editedCustomer) => {
+        await handleUpdateCustomer(editedCustomer);
+        setIsEModalOpen(false);
+    };
+    // redirect to customer page
+    const [redirectToCustomer, setRedirectToCustomer] = useState(false);
+    const [selectedCustomerId, setSelectedCustomerId] = useState(null);
+    const handleEditPageCustomer = (customerId) => {
+        setSelectedCustomerId(customerId.id);
+        setRedirectToCustomer(true);
+        console.log(customerId.id)
+    };
+
+    if (redirectToCustomer && selectedCustomerId) {
+        // return <Navigate to={`/admin/customer?id=${selectedCustomerId}`} />;
+        return <Navigate to={`/admin/customer?id=${selectedCustomerId}`} />;
+    }
 
     return (
         <CustomersAllContent>
@@ -82,7 +111,7 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                 <div className="create-new">
                     <button onClick={openEditModal}>Create</button>
                 </div>
-                <CreateCustomerModal isOpen={isModalOpen} onClose={closeEditModal} onCreate={handleCreateCustomer} />
+
             </div>
 
             <select value={pageSize} onChange={(e) => setPageSize(e.target.value)}>
@@ -114,22 +143,24 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                         <td>{customer.caseNumber}</td>
                         <td>{customer.totalWorth}</td>
                         <td>{customer.caseStarted}</td>
-                        <td><img src={edit} alt="icon"/></td>
+                        <td>
+                            <img
+                                className="edit"
+                                src={edit}
+                                alt="icon"
+                                // onClick={() => {
+                                //     handleEditCustomer(customer);
+                                // }}
+                                 onClick={() => {
+                                     handleEditPageCustomer(customer);
+                                }}
+
+                            />
+                        </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            {/*<div>*/}
-            {/*    {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (*/}
-            {/*        <button*/}
-            {/*            key={page}*/}
-            {/*            onClick={() => handlePageChange(page)}*/}
-            {/*            disabled={page === currentPage}*/}
-            {/*        >*/}
-            {/*            {page}*/}
-            {/*        </button>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
             <div>
                 <p>
                     Showing {startIndex} to {endIndex} of {totalEntries} entries
@@ -146,6 +177,16 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                     </button>
                 )}
             </div>
+            {isEModalOpen && selectedCustomer && (
+                <Modal isOpen={isEModalOpen} onClose={() => setIsEModalOpen(false)}>
+                    <EditCustomerModalContent customer={selectedCustomer} onSave={handleSaveEditedCustomer}/>
+                </Modal>
+            )}
+            {isModalOpen && selectedCustomer && (
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                    <CreateCustomerModal isOpen={isModalOpen} onClose={closeEditModal} onCreate={handleCreateCustomer} />
+                </Modal>
+            )}
         </CustomersAllContent>
     );
 };

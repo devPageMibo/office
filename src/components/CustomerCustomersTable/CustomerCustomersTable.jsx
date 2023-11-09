@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {CustomerCustomersContent} from './Styles.jsx';
 import useFetchCustomers from '../../hooks/useFetchCustomers.jsx';
-import useAdminCustomerLocalDelete from '../../hooks/useAdminCustomerLocalDelete.jsx';
 import Modal from "../Modal/Modal.jsx";
 import EditCustomerModalContent from "../EditCustomerModalСontent/EditCustomerModalcontent.jsx";
-import useAdminCustomerLocalUpdate from "../../hooks/useAdminCustomerLocalUpdate.jsx";
 import AddCustomerModalContent from "../AddCustomerModalContent/AddCustomerModalContent.jsx";
-import useAdminCustomerLocalAdd from "../../hooks/useAdminCustomerAdd.jsx";
 import edit from '../../assets/images/edit.svg';
 import bin from '../../assets/images/bin.svg';
 import add from '../../assets/images/add.svg';
+import useAdminCustomerLocalDelete from '../../hooks/useAdminCustomerLocalDelete.jsx';
+import useAdminCustomerLocalAdd from "../../hooks/useAdminCustomerAdd.jsx";
+import useAdminCustomerLocalUpdate from "../../hooks/useAdminCustomerLocalUpdate.jsx";
 
 const CustomerCustomersTable = ({accessToken}) => {
     const {
@@ -57,8 +57,8 @@ const CustomerCustomersTable = ({accessToken}) => {
         setIsModalOpen(false);
     };
 
+    //Add Customer
     const {handleAddCustomer} = useAdminCustomerLocalAdd(fetchCustomers)
-
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const openAddModal = () => {
@@ -94,9 +94,6 @@ const CustomerCustomersTable = ({accessToken}) => {
                                 src={add}
                                 alt="icon"
                                 onClick={openAddModal}
-                                // onClick={() => {
-                                //     handleAddNewCustomer();
-                                // }}
                             />
                         </td>
                     )}

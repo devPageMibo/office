@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
 export const CustomersAllContent = styled.div`
+  .table-control {
+    display: flex;
+    justify-content: space-between;
+  }
+  
   table {
     width: 100%;
     border-collapse: collapse;
@@ -53,6 +58,10 @@ export const CustomersAllContent = styled.div`
   tr {
     border-top: 1px solid rgba(0, 0, 0, 0.25);
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  }
+  
+  .edit {
+    cursor: pointer;
   }
 
 `;
