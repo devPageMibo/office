@@ -38,8 +38,6 @@ export const ChartsLine13 = ({
                                  secondaryGraph13,
     ...chartData13
                              }) => {
-    console.log("secondaryGraph13", secondaryGraph13);
-    console.log("chartData13", chartData13);
     const labels = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     const updateChartData = (data) => ({

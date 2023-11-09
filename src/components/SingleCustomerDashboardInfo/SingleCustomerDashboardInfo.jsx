@@ -16,7 +16,9 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
 
     };
 
-    const handleSaveClick = async () => {
+
+
+    const handleSaveDashboard = async () => {
         try {
             const accessToken = localStorage.getItem('accessToken');
             const response = await fetch('https://highdardata.xyz/office/v1/customers/setDashboard', {
@@ -57,7 +59,7 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     secondGraph13: formData.secondaryGraph13,
                 };
                 // setChartData(updatedChartData13);
-                console.log(updatedChartData13)
+
             } else {
                 console.error('Error saving customer data:', response.statusText);
             }
@@ -90,11 +92,54 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
         secondaryGraph13: customerData.secondaryGraph13,
     });
 
+    const handleSaveTransactions = async () => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await fetch('https://highdardata.xyz/office/v1/customers/setTransactions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                console.log('Data saved successfully!');
+            } else {
+                console.error('Error saving customer data:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error saving customer data:', error);
+        }
+    };
+
+    const handleSaveCustomers = async () => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+            const response = await fetch('https://highdardata.xyz/office/v1/customers/setCustomers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                console.log('Data saved successfully!');
+            } else {
+                console.error('Error saving customer data:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error saving customer data:', error);
+        }
+    };
     return (
         <DashboardContent>
             <div className="control">
                 <h2>Dashboard</h2>
-                <button onClick={handleSaveClick}>
+                <button onClick={handleSaveDashboard}>
                     Save
                 </button>
             </div>
@@ -213,6 +258,84 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                         />
                     </div>
                 </div>
+            </div>
+            <div className="transactions-info-content">
+                <div className="control">
+                    <h2>Transactions</h2>
+                    <button onClick={handleSaveTransactions}>
+                        Save
+                    </button>
+                </div>
+                <div className="transactions-info-group">
+                    <div>
+                        Total Loss:
+                        <input type="text" name="totalLoss" value={formData.totalLoss}
+                               onChange={handleInputChange}/>
+                    </div>
+                    <div>
+                        Total Recovered:
+                        <input type="text" name="totalRecovered" value={formData.totalRecovered}
+                               onChange={handleInputChange}/>
+                    </div>
+
+                    <div>
+                        Payment Method:
+                        <input type="text" name="paymentMethod" value={formData.paymentMethod}
+                               onChange={handleInputChange}/>
+                    </div>
+
+                    <div>
+                        Wallet:
+                        <input type="text" name="wallet" value={formData.wallet}
+                               onChange={handleInputChange}/>
+                    </div>
+
+                    <div>
+                        Smart Contract ID:
+                        <input type="text" name="smartContractId" value={formData.smartContractId}
+                               onChange={handleInputChange}/>
+                    </div>
+
+                    <div>
+                        Scammed By:
+                        <input type="text" name="scammedBy" value={formData.scammedBy}
+                               onChange={handleInputChange}/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="customers-info-content">
+                <div className="control">
+                    <h2>Customers</h2>
+                    <button onClick={handleSaveCustomers}>
+                        Save
+                    </button>
+                </div>
+                <div className="customers-info-group">
+                    <div>
+                        Total Clients:
+                        <input type="text" name="totalClients" value={formData.totalClients}
+                               onChange={handleInputChange}/>
+                    </div>
+                    <div>
+                        Successful Cases:
+                        <input type="text" name="successfulCases" value={formData.successfulCases}
+                               onChange={handleInputChange}/>
+                    </div>
+
+                    <div>
+                        Amount recovered:
+                        <input type="text" name="amountRecovered" value={formData.amountRecovered}
+                               onChange={handleInputChange}/>
+                    </div>
+
+                    <div>
+                        Personal Manager:
+                        <input type="text" name="personalManager" value={formData.personalManager}
+                               onChange={handleInputChange}/>
+                    </div>
+                </div>
+
             </div>
         </DashboardContent>
     );
