@@ -41,24 +41,24 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     mainGraph5: formData.mainGraph5,
                     mainGraph6: formData.mainGraph6,
                 };
-                setChartData(updatedChartData);
+                setChartData(updatedChartData );
 
                 const updatedChartData13 = {
-                    secondGraph1: formData.secondaryGraph1,
-                    secondGraph2: formData.secondaryGraph2,
-                    secondGraph3: formData.secondaryGraph3,
-                    secondGraph4: formData.secondaryGraph4,
-                    secondGraph5: formData.secondaryGraph5,
-                    secondGraph6: formData.secondaryGraph6,
-                    secondGraph7: formData.secondaryGraph7,
-                    secondGraph8: formData.secondaryGraph8,
-                    secondGraph9: formData.secondaryGraph9,
-                    secondGraph10: formData.secondaryGraph10,
-                    secondGraph11: formData.secondaryGraph11,
-                    secondGraph12: formData.secondaryGraph12,
-                    secondGraph13: formData.secondaryGraph13,
+                    secondaryGraph1: formData.secondaryGraph1,
+                    secondaryGraph2: formData.secondaryGraph2,
+                    secondaryGraph3: formData.secondaryGraph3,
+                    secondaryGraph4: formData.secondaryGraph4,
+                    secondaryGraph5: formData.secondaryGraph5,
+                    secondaryGraph6: formData.secondaryGraph6,
+                    secondaryGraph7: formData.secondaryGraph7,
+                    secondaryGraph8: formData.secondaryGraph8,
+                    secondaryGraph9: formData.secondaryGraph9,
+                    secondaryGraph10: formData.secondaryGraph10,
+                    secondaryGraph11: formData.secondaryGraph11,
+                    secondaryGraph13: formData.secondaryGraph12,
+                    secondaryGraph12: formData.secondaryGraph13,
                 };
-                // setChartData(updatedChartData13);
+                setChartData13(updatedChartData13);
 
             } else {
                 console.error('Error saving customer data:', response.statusText);
