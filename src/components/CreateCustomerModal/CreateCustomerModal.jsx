@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CreateCustomerModalContent} from "./Styles.jsx";
 
-const CreateCustomerModal = ({isOpen, onClose, onCreate}) => {
+const CreateCustomerModal = ({isOpen, onClose, onCreate, fetchCustomers}) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -30,7 +30,9 @@ const CreateCustomerModal = ({isOpen, onClose, onCreate}) => {
 
             if (response.ok) {
                 onCreate(formData);
+                console.log('Customer created successfully!');
                 onClose();
+                fetchCustomers()
             } else {
                 console.error('Помилка при відправці даних на сервер');
             }

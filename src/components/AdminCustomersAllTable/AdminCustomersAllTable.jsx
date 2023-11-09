@@ -55,6 +55,7 @@ const AdminCustomersAllTable = ({ accessToken }) => {
     };
 
     const handleCreateCustomer = (formData) => {
+        fetchCustomers();
     };
 
     const getCurrentDate = () => {
@@ -182,7 +183,7 @@ const AdminCustomersAllTable = ({ accessToken }) => {
                     <EditCustomerModalContent customer={selectedCustomer} onSave={handleSaveEditedCustomer}/>
                 </Modal>
             )}
-            {isModalOpen && selectedCustomer && (
+            {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                     <CreateCustomerModal isOpen={isModalOpen} onClose={closeEditModal} onCreate={handleCreateCustomer} />
                 </Modal>
