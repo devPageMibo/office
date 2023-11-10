@@ -240,6 +240,7 @@ export const AdminAssetTable = ({ isAssetCreateModalOpen, setIsAssetCreateModalO
         }
     };
 
+    //edit
     const [isAssetEditModalOpen, setIsAssetEditModalOpen] = useState(false);
     const [editAssetData, setEditAssetData] = useState(null);
 

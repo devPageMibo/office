@@ -2,6 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {TransactionsTableContent} from "./Styles.jsx";
 import edit from "../../assets/images/edit.svg";
 import bin from "../../assets/images/bin.svg";
+import Modal from "../Modal/Modal.jsx";
+import EditAdminAssetModalContent from "../EditAdminAssetModalContent/EditAdminAssetModalContent.jsx";
+import EditAdminTransactionModalContent from "../EditAdminTransactionModalContent/EditAdminTransactionModalContent.jsx";
 
 const useSingleCustomer = (id) => {
     const [customerData, setCustomerData] = useState(null);
@@ -37,10 +40,10 @@ const useSingleCustomer = (id) => {
         };
     }, [id]);
 
-    return { customerData, fetchData };
+    return {customerData, fetchData};
 };
 
-const AdminTransactionsTable = ({ }) => {
+const AdminTransactionsTable = ({}) => {
     // if (!customerData || !customerData.transactions) {
     //     // return null; // Повертаємо null або інший компонент-завантажувач, якщо transactions є невизначеною
     //     return <div>Loading...</div>;
@@ -51,7 +54,7 @@ const AdminTransactionsTable = ({ }) => {
     const searchParams = new URLSearchParams(window.location.search);
     const id = searchParams.get('id');
 
-    const { customerData, fetchData } = useSingleCustomer(id);
+    const {customerData, fetchData} = useSingleCustomer(id);
 
     const transactions = customerData?.transactions || [];
 
@@ -79,10 +82,43 @@ const AdminTransactionsTable = ({ }) => {
         }
     };
 
+    //edit
+    const [isTransactionEditModalOpen, setIsTransactionEditModalOpen] = useState(false);
+    const [editTransactionData, setEditTransactionData] = useState(null);
 
+    const openEditTransactionModal = () => {
+        setIsTransactionEditModalOpen(true);
+    };
+
+    const closeTransactionAssetModal = () => {
+        setIsTransactionEditModalOpen(false);
+    };
+
+    const handleSetEditTransactionData = (data) => {
+        setEditTransactionData(data);
+    };
+
+    const handleEditTransaction = (transactionId) => {
+        const selectedAsset = transactions.find(transactions => transactions.id === transactionId);
+        handleSetEditTransactionData(selectedAsset);
+        setIsTransactionEditModalOpen(true);
+    };
+    const statusIconPath = '/src/assets/images/status/';
+    // import success from "../../assets/images/status/success.svg";
+    // import fail from "../../assets/images/status/fail.svg";
+    // import inprogress from "../../assets/images/status/inprogress.svg";
+    // import block from "../../assets/images/status/block.svg";
 
     return (
         <TransactionsTableContent>
+            <div className="control">
+                <h2>All Transactions </h2>
+                <button
+                    // onClick={handleSaveCustomers}
+                >
+                    Create
+                </button>
+            </div>
             <table>
                 <thead>
                 <tr>
@@ -100,7 +136,10 @@ const AdminTransactionsTable = ({ }) => {
                     <tr key={transaction.id}>
                         <td>{transaction.numericId}</td>
                         <td>{transaction.name}</td>
-                        <td>{transaction.statusFormatted}</td>
+                        <td>
+                            {/*{transaction.statusFormatted}*/}
+                            <img className="coin-icon" src={`${statusIconPath}${transaction.statusFormatted}.svg`} alt="" />
+                        </td>
                         <td>{transaction.description}</td>
                         <td>{transaction.country}</td>
                         <td>{transaction.recoveredAmount}</td>
@@ -111,9 +150,9 @@ const AdminTransactionsTable = ({ }) => {
                                     className="edit"
                                     src={edit}
                                     alt="icon"
-                                    // onClick={() => {
-                                    //     handleEditCustomer(customer);
-                                    // }}
+                                    onClick={() => {
+                                        handleEditTransaction(transaction.id);
+                                    }}
                                 />
                             </td>
                         )}
@@ -129,6 +168,17 @@ const AdminTransactionsTable = ({ }) => {
                 ))}
                 </tbody>
             </table>
+            {isTransactionEditModalOpen && (
+                <Modal isOpen={setIsTransactionEditModalOpen} onClose={() => setIsTransactionEditModalOpen(false)}>
+                    <EditAdminTransactionModalContent
+                        onSave={fetchData}
+                        isOpen={isTransactionEditModalOpen}
+                        onClose={closeTransactionAssetModal}
+                        onCreate={handleEditTransaction}
+                        editTransactionData={editTransactionData}
+                    />
+                </Modal>
+            )}
         </TransactionsTableContent>
     );
 };
