@@ -2,11 +2,7 @@ import React, {useState} from "react";
 import {DashboardContent} from "./Styles.jsx";
 import {ChartsLine} from "../ChartsLine/ChartsLine.jsx";
 import {ChartsLine13} from "../ChartsLine13/ChartsLine13.jsx";
-import login from "../../pages/Auth/Login/Login.jsx";
-import Modal from "../Modal/Modal.jsx";
-import CreateCustomerModal from "../CreateCustomerModal/CreateCustomerModal.jsx";
 import {AdminAssetTable} from "../AdminAssetTable/AdminAssetTable.jsx";
-import CreateAdminAssetModalContent from "../CreateAdminAssetModalContent/CreateAdminAssetModalContent.jsx";
 
 export const SingleCustomerDashboardInfo = ({...customerData}) => {
 

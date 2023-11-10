@@ -5,21 +5,11 @@ import {AdminCustomerPageContent} from "./Styles.jsx";
 import {
     SingleCustomerDashboardInfo
 } from "../../../components/SingleCustomerDashboardInfo/SingleCustomerDashboardInfo.jsx";
-import {log10} from "chart.js/helpers"; // Шлях до вашого хука
 
 const AdminCustomerPage = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const id = searchParams.get('id');
     const customerData = useSingleCustomer(id);
-
-
-
-    // const formattedId = {
-    //     id: id,
-    // };
-    //
-    // console.log('00', formattedId.id)
-
 
     return (
         <AdminCustomerPageContent>
