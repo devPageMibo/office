@@ -7,7 +7,6 @@ import Modal from "../Modal/Modal.jsx";
 import CreateCustomerModal from "../CreateCustomerModal/CreateCustomerModal.jsx";
 import {AdminAssetTable} from "../AdminAssetTable/AdminAssetTable.jsx";
 import CreateAdminAssetModalContent from "../CreateAdminAssetModalContent/CreateAdminAssetModalContent.jsx";
-// import {CreateAdminAssetModalContent} from "../CreateAdminAssetModalContent/CreateAdminAssetModalContent.jsx";
 
 export const SingleCustomerDashboardInfo = ({...customerData}) => {
 
@@ -142,7 +141,7 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
     };
 
     //Create asset
-    const [IsAssetCreateModalOpen, setIsAssetCreateModalOpen] = useState(false);
+    const [isAssetCreateModalOpen, setIsAssetCreateModalOpen] = useState(false);
 
 
     const openCreateAssetModal = () => {
@@ -288,17 +287,23 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     <button
                         onClick={openCreateAssetModal}
                     >
+
                         Create
                     </button>
                 </div>
                 <div className="asset-info-group">
-                    <AdminAssetTable {...customerData} />
+                    {/*<AdminAssetTable onCreate={openCreateAssetModal} {...customerData} />*/}
+                    <AdminAssetTable
+                        isAssetCreateModalOpen={isAssetCreateModalOpen}
+                        setIsAssetCreateModalOpen={setIsAssetCreateModalOpen}
+                        {...customerData}
+                    />
                 </div>
-                {IsAssetCreateModalOpen && (
-                    <Modal isOpen={setIsAssetCreateModalOpen} onClose={() => setIsAssetCreateModalOpen(false)}>
-                        <CreateAdminAssetModalContent isOpen={IsAssetCreateModalOpen} onClose={closeCreateAssetModal} onCreate={handleCreateAsset} />
-                    </Modal>
-                )}
+                {/*{isAssetCreateModalOpen && (*/}
+                {/*    <Modal isOpen={setIsAssetCreateModalOpen} onClose={() => setIsAssetCreateModalOpen(false)}>*/}
+                {/*        <CreateAdminAssetModalContent isOpen={isAssetCreateModalOpen} onClose={closeCreateAssetModal} onCreate={handleCreateAsset} />*/}
+                {/*    </Modal>*/}
+                {/*)}*/}
             </div>
             <div className="transactions-info-content">
                 <div className="control">

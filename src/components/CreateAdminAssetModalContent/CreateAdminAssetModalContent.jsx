@@ -8,6 +8,8 @@ import useSingleCustomer from "../../hooks/useSingleCustomer.jsx";
 // import ethereum from '../../assets/images/cryptoIcon/ethereum.svg';
 // import litecoin from '../../assets/images/cryptoIcon/litecoin.svg';
 
+
+
 const CreateAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
 
     const searchParams = new URLSearchParams(window.location.search);

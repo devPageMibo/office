@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {ModalContent} from "./Styles.jsx";
 
-const EditAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
+const EditAdminAssetModalContent = ({isOpen, onClose, onCreate, onSave}) => {
 
     const [formData, setFormData] = useState({
         id: '',
@@ -31,9 +31,11 @@ const EditAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
 
             if (response.ok) {
                 onCreate(formData);
-                console.log('Asset created successfully!');
-                onClose();
+                console.log('Asset created successfully!-00');
 
+                onSave();
+                console.log('after create onSave fetchData')
+                onClose();
             } else {
                 console.error('Помилка при відправці даних на сервер');
             }
