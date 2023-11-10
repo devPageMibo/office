@@ -35,7 +35,7 @@ export const ChartsDoughnut = ({...customerData}) => {
                       style={{maxWidth: '175px', width: '100%', maxHeight: '175px'}}/>
             <div className='doughnut-labels'>
                 {customerData.assets.map(asset => (
-                    <div key={asset.name}>
+                    <div key={asset.id}>
                         <span>
                             <img className="doughnut-icon" src={`${cryptoIconPath}${asset.logoName}`} alt={asset.name}/>
                             {asset.name}

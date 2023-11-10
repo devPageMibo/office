@@ -18,7 +18,7 @@ export const ModalOverlay = styled.div`
     padding: 20px;
     border-radius: 8px;
     position: relative;
-    max-width: 80%;
+    max-width: 960px;
     text-align: center;
   }
 

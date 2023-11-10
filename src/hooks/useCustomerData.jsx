@@ -31,7 +31,7 @@ const useCustomerData = () => {
         fetchCustomerData();
     }, []);
 
-    return { customerData, error };
+    return { customerData, error, };
 };
 
 export default useCustomerData;

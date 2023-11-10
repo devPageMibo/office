@@ -3,10 +3,16 @@ import {DashboardContent} from "./Styles.jsx";
 import {ChartsLine} from "../ChartsLine/ChartsLine.jsx";
 import {ChartsLine13} from "../ChartsLine13/ChartsLine13.jsx";
 import login from "../../pages/Auth/Login/Login.jsx";
+import Modal from "../Modal/Modal.jsx";
+import CreateCustomerModal from "../CreateCustomerModal/CreateCustomerModal.jsx";
+import {AdminAssetTable} from "../AdminAssetTable/AdminAssetTable.jsx";
+import CreateAdminAssetModalContent from "../CreateAdminAssetModalContent/CreateAdminAssetModalContent.jsx";
+// import {CreateAdminAssetModalContent} from "../CreateAdminAssetModalContent/CreateAdminAssetModalContent.jsx";
 
 export const SingleCustomerDashboardInfo = ({...customerData}) => {
-    const [formData, setFormData] = useState({...customerData});
 
+    const [formData, setFormData] = useState({...customerData});
+    // console.log('Customer id', id)
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormData((prevData) => ({
@@ -15,7 +21,6 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
         }));
 
     };
-
 
 
     const handleSaveDashboard = async () => {
@@ -41,7 +46,7 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     mainGraph5: formData.mainGraph5,
                     mainGraph6: formData.mainGraph6,
                 };
-                setChartData(updatedChartData );
+                setChartData(updatedChartData);
 
                 const updatedChartData13 = {
                     secondaryGraph1: formData.secondaryGraph1,
@@ -135,6 +140,26 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
             console.error('Error saving customer data:', error);
         }
     };
+
+    //Create asset
+    const [IsAssetCreateModalOpen, setIsAssetCreateModalOpen] = useState(false);
+
+    const openCreateAssetModal = () => {
+        setIsAssetCreateModalOpen(true);
+    };
+    const closeCreateAssetModal = () => {
+        setIsAssetCreateModalOpen(false);
+    };
+
+
+    const handleCreateAsset = (formData) => {
+        // fetchCustomers();
+    };
+
+
+
+    // const handleCreateAsset
+
     return (
         <DashboardContent>
             <div className="control">
@@ -259,6 +284,24 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     </div>
                 </div>
             </div>
+            <div className="assets-info-content">
+                <div className="control">
+                    <h2>Asset</h2>
+                    <button
+                        onClick={openCreateAssetModal}
+                    >
+                        Create
+                    </button>
+                </div>
+                <div className="asset-info-group">
+                    <AdminAssetTable {...customerData} />
+                </div>
+                {IsAssetCreateModalOpen && (
+                    <Modal isOpen={setIsAssetCreateModalOpen} onClose={() => setIsAssetCreateModalOpen(false)}>
+                        <CreateAdminAssetModalContent isOpen={IsAssetCreateModalOpen} onClose={closeCreateAssetModal} onCreate={handleCreateAsset} />
+                    </Modal>
+                )}
+            </div>
             <div className="transactions-info-content">
                 <div className="control">
                     <h2>Transactions</h2>
@@ -303,7 +346,6 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     </div>
                 </div>
             </div>
-
             <div className="customers-info-content">
                 <div className="control">
                     <h2>Customers</h2>
@@ -337,6 +379,7 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                 </div>
 
             </div>
+
         </DashboardContent>
     );
 };
