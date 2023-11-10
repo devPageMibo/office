@@ -2,6 +2,8 @@ import {AdminAssetTableContent} from "./Styles.jsx";
 import edit from "../../assets/images/edit.svg";
 import bin from "../../assets/images/bin.svg";
 import React, {useEffect, useState} from "react";
+import Modal from "../Modal/Modal.jsx";
+import EditAdminAssetModalContent from "../EditAdminAssetModalContent/EditAdminAssetModalContent.jsx";
 
 export const AdminAssetTable = ({assets}) => {
     const [error, setError] = useState(null);
@@ -29,6 +31,21 @@ export const AdminAssetTable = ({assets}) => {
         } catch (error) {
             setError('Error deleting asset');
         }
+    };
+
+    // Edit Asset
+    const [isAssetEditModalOpen, setIsAssetEditModalOpen] = useState(false);
+
+    const openEditAssetModal = () => {
+        setIsAssetEditModalOpen(true);
+    };
+
+    const closeEditAssetModal = () => {
+        setIsAssetEditModalOpen(false);
+    };
+
+    const handleEditAsset = (formData) => {
+        openEditAssetModal()
     };
 
 
@@ -59,9 +76,9 @@ export const AdminAssetTable = ({assets}) => {
                                 className="edit"
                                 src={edit}
                                 alt="icon"
-                                // onClick={() => {
-                                //     handleEditCustomer(customer);
-                                // }}
+                                onClick={() => {
+                                    handleEditAsset(asset.id);
+                                }}
                             />
                         </td>
                         <td>
@@ -75,6 +92,11 @@ export const AdminAssetTable = ({assets}) => {
                 ))}
                 </tbody>
             </table>
+            {isAssetEditModalOpen && (
+                <Modal isOpen={setIsAssetEditModalOpen} onClose={() => setIsAssetEditModalOpen(false)}>
+                    <EditAdminAssetModalContent isOpen={isAssetEditModalOpen} onClose={closeEditAssetModal} onCreate={handleEditAsset} />
+                </Modal>
+            )}
         </AdminAssetTableContent>
     )
 }

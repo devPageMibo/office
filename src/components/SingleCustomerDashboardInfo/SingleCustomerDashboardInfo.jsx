@@ -144,6 +144,7 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
     //Create asset
     const [IsAssetCreateModalOpen, setIsAssetCreateModalOpen] = useState(false);
 
+
     const openCreateAssetModal = () => {
         setIsAssetCreateModalOpen(true);
     };
@@ -151,14 +152,11 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
         setIsAssetCreateModalOpen(false);
     };
 
-
     const handleCreateAsset = (formData) => {
-        // fetchCustomers();
+
     };
 
 
-
-    // const handleCreateAsset
 
     return (
         <DashboardContent>

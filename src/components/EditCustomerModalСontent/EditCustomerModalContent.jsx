@@ -6,13 +6,11 @@ const EditCustomerModalContent = ({customer, onSave}) => {
 
     const [editedData, setEditedData] = useState({
         numericId: customer.numericId || '',
-        firstName: customer.firstName || '',
-        lastName: customer.lastName || '',
-        email: customer.email || '',
-        phone: customer.phone || '',
-        caseNumber: customer.caseNumber || '',
-        totalWorth: customer.totalWorth || '',
-        caseStarted: customer.caseStarted || '',
+        name: customer.name || '',
+        status: customer.status || '',
+        country: customer.country || '',
+        recoveredAmount: customer.recoveredAmount || '',
+        date: customer.date || '',
         password: customer.password
     });
 
@@ -36,32 +34,24 @@ const EditCustomerModalContent = ({customer, onSave}) => {
                     <input type="text" name="numericId" value={editedData.numericId} onChange={handleInputChange}/>
                 </div>
                 <div>
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" name="firstName" value={editedData.firstName} onChange={handleInputChange}/>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" name="name" value={editedData.name} onChange={handleInputChange}/>
                 </div>
                 <div>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" name="lastName" value={editedData.lastName} onChange={handleInputChange}/>
+                    <label htmlFor="email">Status</label>
+                    <input type="text" name="status" value={editedData.status} onChange={handleInputChange}/>
                 </div>
                 <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="text" name="email" value={editedData.email} onChange={handleInputChange}/>
+                    <label htmlFor="phone">Country</label>
+                    <input type="text" name="country" value={editedData.country} onChange={handleInputChange}/>
                 </div>
                 <div>
-                    <label htmlFor="phone">Phone Number</label>
-                    <input type="text" name="phone" value={editedData.phone} onChange={handleInputChange}/>
+                    <label htmlFor="caseNumber">Recovered Amount</label>
+                    <input type="text" name="recoveredAmount" value={editedData.recoveredAmount} onChange={handleInputChange}/>
                 </div>
                 <div>
-                    <label htmlFor="caseNumber">Case Number</label>
-                    <input type="text" name="caseNumber" value={editedData.caseNumber} onChange={handleInputChange}/>
-                </div>
-                <div>
-                    <label htmlFor="totalWorth">Recovered Amount</label>
-                    <input type="text" name="totalWorth" value={editedData.totalWorth} onChange={handleInputChange}/>
-                </div>
-                <div>
-                    <label htmlFor="caseStarted">Date</label>
-                    <input type="text" name="caseStarted" value={editedData.caseStarted} onChange={handleInputChange}/>
+                    <label htmlFor="date">Date</label>
+                    <input type="text" name="date" value={editedData.date} onChange={handleInputChange}/>
                 </div>
             </div>
             <button onClick={handleSave}>Save</button>

@@ -1,21 +1,11 @@
+
 import React, {useState} from 'react';
 import {ModalContent} from "./Styles.jsx";
-import useSingleCustomer from "../../hooks/useSingleCustomer.jsx";
 
-
-// import usdt from '../../assets/images/cryptoIcon/usdt.svg';
-// import bitcoin from '../../assets/images/cryptoIcon/bitcoin.svg';
-// import ethereum from '../../assets/images/cryptoIcon/ethereum.svg';
-// import litecoin from '../../assets/images/cryptoIcon/litecoin.svg';
-
-const CreateAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
-
-    const searchParams = new URLSearchParams(window.location.search);
-    const id = searchParams.get('id');
-
+const EditAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
 
     const [formData, setFormData] = useState({
-        customerId: id,
+        id: '',
         name: '',
         amount: '',
         price: '',
@@ -30,7 +20,7 @@ const CreateAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
     const handleSave = async () => {
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const response = await fetch('https://highdardata.xyz/office/v1/assets/create', {
+            const response = await fetch('https://highdardata.xyz/office/v1/assets/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,6 +81,6 @@ const CreateAdminAssetModalContent = ({isOpen, onClose, onCreate}) => {
     );
 };
 
-export default CreateAdminAssetModalContent;
+export default EditAdminAssetModalContent;
 
 
