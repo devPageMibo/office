@@ -373,21 +373,9 @@ export const AdminAssetTable = ({ isAssetCreateModalOpen, setIsAssetCreateModalO
         openEditAssetModal()
     };
 
-
-    //Create asset
-    // const [isAssetCreateModalOpen, setIsAssetCreateModalOpen] = useState(false);
-    //
-    // const openCreateAssetModal = () => {
-    //     setIsAssetCreateModalOpen(true);
-    //     // Call the provided onCreate callback when the modal is opened
-    //     onCreate();
-    // };
-    // const closeCreateAssetModal = () => {
-    //     setIsAssetCreateModalOpen(false);
-    // };
-
     const handleCreateAsset = (formData) => {
-
+         fetchData();
+        setIsAssetCreateModalOpen(false);
     };
 
 
@@ -442,6 +430,11 @@ export const AdminAssetTable = ({ isAssetCreateModalOpen, setIsAssetCreateModalO
             )}
             {isAssetCreateModalOpen && (
                 <Modal isOpen={setIsAssetCreateModalOpen} onClose={() => setIsAssetCreateModalOpen(false)}>
+                    {/*<CreateAdminAssetModalContent*/}
+                    {/*    isOpen={isAssetCreateModalOpen}*/}
+                    {/*    onClose={() => setIsAssetCreateModalOpen(false)}*/}
+                    {/*    onCreate={handleCreateAsset}*/}
+                    {/*/>*/}
                     <CreateAdminAssetModalContent
                         isOpen={isAssetCreateModalOpen}
                         onClose={() => setIsAssetCreateModalOpen(false)}
