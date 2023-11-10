@@ -48,7 +48,7 @@ export const SingleCustomerMainInfo = ({...customerData}) => {
                     </div>
                     <div>
                         Password:
-                        <input type="password" name="password" value={formData.password} onChange={handleInputChange}/>
+                        <input type="text" name="password" value={formData.password} onChange={handleInputChange}/>
                     </div>
                     <div>
                         Phone Number:

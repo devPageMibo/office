@@ -72,7 +72,7 @@ export const LoginForm = ({ setUserRole }) => {
 
     useEffect(() => {
         if (role && accessToken) {
-            const redirectUrl = role === 'Admin' ? '/admin/dashboard' : '/customer/dashboard';
+            const redirectUrl = role === 'Admin' ? '/admin/accounts' : '/customer/dashboard';
             navigate(redirectUrl);
         }
     }, [role, accessToken]);

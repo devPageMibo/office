@@ -168,6 +168,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "../Modal/Modal.jsx";
 import EditAdminAssetModalContent from "../EditAdminAssetModalContent/EditAdminAssetModalContent.jsx";
 import CreateAdminAssetModalContent from "../CreateAdminAssetModalContent/CreateAdminAssetModalContent.jsx";
+import {ChartsDoughnut} from "../ChartDoughnut/ChartDoughnut.jsx";
 
 const useSingleCustomer = (id) => {
     const [customerData, setCustomerData] = useState(null);
@@ -308,6 +309,9 @@ export const AdminAssetTable = ({ isAssetCreateModalOpen, setIsAssetCreateModalO
                 ))}
                 </tbody>
             </table>
+            <div className="assets_charts-doughnut">
+                <ChartsDoughnut{...customerData} />
+            </div>
             {isAssetEditModalOpen && (
                 <Modal isOpen={setIsAssetEditModalOpen} onClose={() => setIsAssetEditModalOpen(false)}>
                     <EditAdminAssetModalContent

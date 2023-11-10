@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {CustomerTransactionsContent} from "./Styles.jsx";
 import {useNavigate} from "react-router-dom";
 import useCustomerData from "../../../hooks/useCustomerData.jsx";
@@ -10,6 +10,14 @@ const CustomerTransactions = ({setUserRole}) => {
 
     // const navigate = useNavigate();
     const {customerData, error} = useCustomerData();
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            navigate('/');
+        }
+    }, [navigate]);
 
 
     return (

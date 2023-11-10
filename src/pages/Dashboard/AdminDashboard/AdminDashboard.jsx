@@ -7,11 +7,12 @@ const AdminDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
-            navigate("/login");
+            navigate('/');
         }
     }, [navigate]);
+
     return (
         <AdminDashboardContent>
             <div className="dashboard_content">

@@ -3,6 +3,8 @@ import {DashboardContent} from "./Styles.jsx";
 import {ChartsLine} from "../ChartsLine/ChartsLine.jsx";
 import {ChartsLine13} from "../ChartsLine13/ChartsLine13.jsx";
 import {AdminAssetTable} from "../AdminAssetTable/AdminAssetTable.jsx";
+import TransactionsTable from "../TransactionsTable/TransactionsTable.jsx";
+import AdminTransactionsTable from "../AdminTransactionsTable/AdminTransactionsTable.jsx";
 
 export const SingleCustomerDashboardInfo = ({...customerData}) => {
 
@@ -150,7 +152,6 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
     const handleCreateAsset = (formData) => {
 
     };
-
 
 
     return (
@@ -377,6 +378,9 @@ export const SingleCustomerDashboardInfo = ({...customerData}) => {
                     </div>
                 </div>
 
+            </div>
+            <div className="customers-table-info-content">
+                <AdminTransactionsTable />
             </div>
 
         </DashboardContent>

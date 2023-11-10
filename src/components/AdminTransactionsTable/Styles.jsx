@@ -55,5 +55,9 @@ export const TransactionsTableContent = styled.div`
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   }
   
+  .edit,
+  .bin {
+    cursor: pointer;
+  }
 
 `;

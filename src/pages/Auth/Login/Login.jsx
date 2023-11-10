@@ -23,7 +23,7 @@ const Login = ({ setUserRole }) => {
                         const data = await response.json();
                         setUserRole(data.role);
                         if (data.role === 'Admin') {
-                            navigate('/admin/dashboard');
+                            navigate('/admin/accounts');
                         } else if (data.role === 'Customer') {
                             navigate('/customer/dashboard');
                         }

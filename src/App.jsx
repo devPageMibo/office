@@ -17,7 +17,7 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/login"
+                <Route path="/"
                        element=
                            {<LoginLayout>
                                <Login setUserRole={setUserRole}/>

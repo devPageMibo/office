@@ -7,14 +7,14 @@ import {Dashboard} from "../../../components/Dashboard/Dashboard.jsx";
 
 const CustomerDashboard = ({ setUserRole }) => {
     const { userRole } = useAuth();
-    const navigate = useNavigate();
+
     const { customerData, error } = useCustomerData();
 
-
+    const navigate = useNavigate();
     useEffect(() => {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
-            navigate('/login');
+            navigate('/');
         }
     }, [navigate]);
 
